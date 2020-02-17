@@ -1,6 +1,5 @@
-﻿// ConsoleApplication4.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+﻿// ConsoleApplication7.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
-
 
 #include <iostream>
 #include<iomanip>
@@ -16,20 +15,38 @@ template <typename T>
 void fillArr(T arr[], int size, T min, T max, int order);
 template <typename T>
 void printArr(T arr[], int size);
+template <typename T>
+void getSumDigitMassive(T arr[], int size);
+template<typename T>
+void getSortSumMassive(T arr[], int size);
 
 
+template<typename T>
+int retRepCountDig(T arr[], int size, T key = rand() % 10);
 
+int factorial(int n)
+{
+	int f = 1;
+	for (int i = 2; i <= n; i++)
+		f *= i;
+	return f;
+}
 int main()
 {
+
+	int x = 10;
+	int px = &a;
+	cout << " x = " << px << endl; 
+
 	srand(time(NULL));
 	char task{};
 	while (true || task != '0')
 	{
 		system("cls"); //clear screen
-		cout << "1 - Decrease\n";
-		cout << "2 - Increase \n";
-		cout << "3 - Increase \n";
-		cout << "4 - Increase \n";
+		cout << "1 - Sort Massive Sum\n";
+		cout << "2 - Repetitions \n";
+		cout << "3 - Sort Massive Sum\n";
+		cout << "4 - Sort Massive Sum\n";
 		cout << "0 - Exit! \n";
 		cout << "Make your choice:\n";
 		cin >> task;
@@ -41,17 +58,36 @@ int main()
 
 		case '1':
 		{
-			cout << "1 - Decrease\n";
-		
+			cout << "1 -Sort Massive Sum\n";
+			//сортируем массив по сумме
+			
+			int MtxInt[SIZE]{};
+			int min1 = 10;
+			int max1 = 100;
+			fillArr(MtxInt, SIZE, min1, max1, 1);
+			cout << " Integer array: \n";
+			printArr(MtxInt, SIZE);
+			cout << " array the sum:\n ";
+		    getSumDigitMassive(MtxInt, SIZE);
+			printArr(MtxInt, SIZE);
+			cout << " sort sum massive:\n";
+			getSortSumMassive(MtxInt, SIZE);
+			printArr(MtxInt, SIZE);
 
-
+			char  MtxChar[SIZE]{};
+			char  min2 = 'a';
+			char  max2 = 'w';
+			fillArr(MtxChar, SIZE, min2, max2, 1);
+			cout << " Char array: \n";
+			printArr(MtxChar, SIZE);
 
 		}break;
 
 
 		case '2':
 		{
-			cout << " 2 - Increase \n";
+			cout << " 2 - Repetitions \n";
+			//возвращаем количество повторений 
 
 			int MtxInt[SIZE]{};
 			int min1 = 0;
@@ -59,25 +95,32 @@ int main()
 			fillArr(MtxInt, SIZE, min1, max1, 1);
 			cout << " Integer array: \n";
 			printArr(MtxInt, SIZE);
-			
-			char  MtxChar[SIZE]{};
-			char  min2 = 'a';
-			char  max2 = 'w';
-			fillArr(MtxChar, SIZE, min2, max2, 1);
-			cout << " Char array: \n";
-			printArr(MtxChar, SIZE);
-			
+
+			int count= retRepCountDig(MtxInt, SIZE);
+			if (count != -1) cout << " repetitions = " << count << " - " << MtxInt[count]<< endl;
+			else
+				cout << " not found \n" << count << endl;
+
+
 
 
 		}break;
 		case '3':
 		{
-			
+			cout << "3 - Sort Massive Sum\n";
+			// ищем факториал 
+
+			int n = 5;
+			int result = factorial(n);
+			cout << " result = " << n << " ! is = " << result << endl;
 
 		}break;
 		case '4':
 		{
-	
+			cout << "4 - Sort Massive Sum\n";
+
+		
+
 		}break;
 
 		return 0;
@@ -107,8 +150,54 @@ void printArr(T arr[], int size)
 	}
 	cout << endl;
 }
+template <typename T>
+void getSumDigitMassive(T arr[], int size )
+{
+	
+	int sum = 0;
+	for (int i = 0; i < size; i++)
+	{
+		sum = 0;
+		while (arr[i]>0)
+		{
+			sum += arr[i] % 10;
+			arr[i] /= 10;
+		}
+		arr[i] = sum;	
+	}
 
-
+}
+template<typename T>
+void getSortSumMassive(T arr[], int size)
+{
+	T temp;
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = i + 1; j < size; j++)
+		{
+			if (arr[j] > arr[i])
+			{
+				temp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+	}
+}
+template<typename T>
+int  retRepCountDig(T arr[], int size, T key)
+{
+	int countDig{};
+	for (int i = 0; i < size; i++)
+	{
+		if (arr[i] == key)
+		{
+			countDig++;
+			return countDig;	
+		}
+	}
+	return -1;
+}
 
 
 

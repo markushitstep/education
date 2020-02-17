@@ -1,4 +1,4 @@
-﻿// ConsoleApplication4.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+﻿// ConsoleApplication5.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
 
 
@@ -10,74 +10,95 @@ using namespace std;
 
 #define SIZE 10
 
-template <typename T>
-inline T retRand(T min, T max, int order) { return (T)(rand() % (int)(max - min) * order) / order + min; }
-template <typename T>
-void fillArr(T arr[], int size, T min, T max, int order);
-template <typename T>
-void printArr(T arr[], int size);
 
+void calc(int* a, int* b, char* op, float* res)
+{
+	if (*op == '+')
+	{
+		*res = float(*a + *b);
+	}
+	else if (*op == '-')
+	{
+		*res = float(*a - *b);
+	}
+	else if (*op == '/')
+	{
+		*res = float(*a / *b);
+	}
+	else if (*op == '*')
+	{
+		*res = float(*a * *b);
+	}
+	
 
-
+	
+}
 int main()
 {
+
+	
+
 	srand(time(NULL));
 	char task{};
 	while (true || task != '0')
 	{
 		system("cls"); //clear screen
-		cout << "1 - Decrease\n";
-		cout << "2 - Increase \n";
-		cout << "3 - Increase \n";
-		cout << "4 - Increase \n";
+		cout << "1 - Calculator\n";
 		cout << "0 - Exit! \n";
 		cout << "Make your choice:\n";
 		cin >> task;
 		if (task == '0') break;
 		switch (task)
 		{
-
-
-
 		case '1':
 		{
-			cout << "1 - Decrease\n";
+			cout << "1 - Calculator\n";
+
+			int a1;
+			int b1;
+			float res1;
+			char op1;
+			cout << " Enter first digit:\n";
+			cin >> a1;
+			cout << "Make your choice: |+|-|/|*|\n";
+			cin >> op1;
+			cout << " Enter second digit:\n";
+			cin >> b1;
+			calc(&a1, &b1, &op1, &res1);
+			cout << " Result:\n" << res1 << endl;
 		
-
-
-
 		}break;
 
 
 		case '2':
 		{
-			cout << " 2 - Increase \n";
+			cout << " 2 - Repetitions \n";
 
-			int MtxInt[SIZE]{};
-			int min1 = 0;
-			int max1 = 10;
-			fillArr(MtxInt, SIZE, min1, max1, 1);
-			cout << " Integer array: \n";
-			printArr(MtxInt, SIZE);
-			
-			char  MtxChar[SIZE]{};
-			char  min2 = 'a';
-			char  max2 = 'w';
-			fillArr(MtxChar, SIZE, min2, max2, 1);
-			cout << " Char array: \n";
-			printArr(MtxChar, SIZE);
-			
+
+
 
 
 		}break;
 		case '3':
 		{
-			
+			cout << "3 - Sort Massive Sum\n";
 
 		}break;
 		case '4':
 		{
-	
+			cout << "4 - Sort Massive Sum\n";
+			int arr[SIZE];
+			int* pArr{};
+			for (int i = 0; i < SIZE; i++)
+			{
+				
+				arr[i] = rand() % 10;
+				pArr = arr;
+				cout << arr[i] << " \t";
+				
+			}
+			cout << " arr[0]\t = " << *pArr << endl;
+
 		}break;
 
 		return 0;
@@ -90,27 +111,6 @@ int main()
 	}
 	cout << "Bye\n";
 }
-template <typename T>
-void fillArr(T arr[], int size, T min, T max, int order)
-{
-	for (int i = 0; i < size; i++)
-	{
-		arr[i] = retRand(min, max, order);
-	}
-}
-template <typename T>
-void printArr(T arr[], int size)
-{
-	for (int i = 0; i < size; i++)
-	{
-		cout << arr[i] << "\t";
-	}
-	cout << endl;
-}
-
-
-
-
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
