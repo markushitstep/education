@@ -1,5 +1,6 @@
-﻿// ConsoleApplication7.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
+﻿// ConsoleApplication6.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //
+
 
 #include <iostream>
 #include<iomanip>
@@ -15,6 +16,10 @@ template <typename T>
 void fillArr(T arr[], int size, T min, T max, int order);
 template <typename T>
 void printArr(T arr[], int size);
+
+template <typename T>
+void getSorteMass(T arr[], int size);
+
 template <typename T>
 void getSumDigitMassive(T arr[], int size);
 template<typename T>
@@ -22,7 +27,7 @@ void getSortSumMassive(T arr[], int size);
 
 
 template<typename T>
-int retRepCountDig(T arr[], int size, T key = rand() % 10);
+int retRepCountDig(T arr[], int size, T key);
 
 int factorial(int n)
 {
@@ -34,9 +39,7 @@ int factorial(int n)
 int main()
 {
 
-	int x = 10;
-	int px = &a;
-	cout << " x = " << px << endl; 
+	
 
 	srand(time(NULL));
 	char task{};
@@ -60,15 +63,17 @@ int main()
 		{
 			cout << "1 -Sort Massive Sum\n";
 			//сортируем массив по сумме
-			
+
 			int MtxInt[SIZE]{};
 			int min1 = 10;
 			int max1 = 100;
 			fillArr(MtxInt, SIZE, min1, max1, 1);
 			cout << " Integer array: \n";
 			printArr(MtxInt, SIZE);
+			getSorteMass(MtxInt, SIZE);
+			printArr(MtxInt, SIZE);
 			cout << " array the sum:\n ";
-		    getSumDigitMassive(MtxInt, SIZE);
+			getSumDigitMassive(MtxInt, SIZE);
 			printArr(MtxInt, SIZE);
 			cout << " sort sum massive:\n";
 			getSortSumMassive(MtxInt, SIZE);
@@ -95,9 +100,9 @@ int main()
 			fillArr(MtxInt, SIZE, min1, max1, 1);
 			cout << " Integer array: \n";
 			printArr(MtxInt, SIZE);
-
-			int count= retRepCountDig(MtxInt, SIZE);
-			if (count != -1) cout << " repetitions = " << count << " - " << MtxInt[count]<< endl;
+			int  key = rand() % 10;
+			int count = retRepCountDig(MtxInt, SIZE, key);
+			if (count != 0) cout << " repetitions = " << count << " - " << key << endl;
 			else
 				cout << " not found \n" << count << endl;
 
@@ -108,18 +113,38 @@ int main()
 		case '3':
 		{
 			cout << "3 - Sort Massive Sum\n";
-			// ищем факториал 
+			///*void Disk(int from, int to)
+			//{
+			//	cout << from << "-->" << to << endl;
+			//}
+			//void Tower(int h, int x, int z, int y)
+			//{
+			//	if (h == 1)
+			//		Disk(x, z);
+			//	else
+			//	{
+			//		Tower(h - 1, x, y, z);
+			//		Disk(x, z);
+			//		Tower(h - 1, y, z, x);
+			//	}
+			//}
 
-			int n = 5;
-			int result = factorial(n);
-			cout << " result = " << n << " ! is = " << result << endl;
+			//int main()
+			//{
+			//	unsigned short number;
+			//	cout << "The Hanoi towers" << endl;
+			//	cout << "vvedite kolichestvo diskov:: ";
+			//	cin >> number;
+			//	Tower(number, 1, 3, 2);
+			//	getch();
+			//	return 0;*/
 
 		}break;
 		case '4':
 		{
 			cout << "4 - Sort Massive Sum\n";
 
-		
+
 
 		}break;
 
@@ -151,19 +176,36 @@ void printArr(T arr[], int size)
 	cout << endl;
 }
 template <typename T>
-void getSumDigitMassive(T arr[], int size )
+void getSorteMass(T arr[], int size)
 {
-	
+	T temp;
+	for (int i = 0; i < size; i++)
+	{
+		temp = arr[i];
+		for (int j = i + 1; j < size; j++)
+		{
+			if (arr[j] < temp)
+			{
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+		}
+	}
+}
+template <typename T>
+void getSumDigitMassive(T arr[], int size)
+{
+
 	int sum = 0;
 	for (int i = 0; i < size; i++)
 	{
 		sum = 0;
-		while (arr[i]>0)
+		while (arr[i] > 0)
 		{
 			sum += arr[i] % 10;
 			arr[i] /= 10;
 		}
-		arr[i] = sum;	
+		arr[i] = sum;
 	}
 
 }
@@ -187,18 +229,19 @@ void getSortSumMassive(T arr[], int size)
 template<typename T>
 int  retRepCountDig(T arr[], int size, T key)
 {
-	int countDig{};
+
+	int countDig{0};
 	for (int i = 0; i < size; i++)
 	{
 		if (arr[i] == key)
 		{
 			countDig++;
-			return countDig;	
+
 		}
 	}
-	return -1;
+	return countDig;
+	
 }
-
 
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
